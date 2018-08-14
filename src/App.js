@@ -38,6 +38,16 @@ class App extends Component {
               <ul  className="navbar-nav mr-auto">
                 <li  className="nav-item active">
                   <a  className="nav-link"
+                    onClick={this.goTo.bind(this, 'profile')}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Profile
+                  <span  className="sr-only">
+                  </span>
+                  </a>
+                </li>
+                <li  className="nav-item active">
+                  <a  className="nav-link"
                     onClick={this.logout.bind(this)}
                     style={{ cursor: "pointer" }}
                   >

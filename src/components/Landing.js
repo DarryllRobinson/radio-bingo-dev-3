@@ -15,14 +15,12 @@ class Landing extends Component {
 
   componentDidMount() {
 
-
     const numTiles = 16;
 
     for (let i = 0; i < numTiles; i++) {
       Promise.all([
         this.fetchSong(),
-        this.fetchArtists(),
-        this.fetchProfile()])
+        this.fetchArtists()])
         .then((values) => {
           this.prepTiles(values);
         });
@@ -37,14 +35,10 @@ class Landing extends Component {
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
-        this.setState({ profile }), function() {
-          return profile;
-        };
+        this.setState({ profile });
       });
     } else {
-      this.setState({ profile: userProfile }), function() {
-        return userProfile;
-      };
+      this.setState({ profile: userProfile });
     }
   }
 
@@ -139,11 +133,10 @@ class Landing extends Component {
   }
 
   render() {
-    const { profile } = this.state;
-    console.log('profile: ', profile);
+
     return (
       <div className="Landing">
-        <h2>{profile.name} Radio Bingo Board</h2>
+        <h2>Your Radio Bingo Board</h2>
 
         <div className="tileCard">
 
