@@ -17,3 +17,19 @@ db.serialize(function() {
            '`is_current_artist` INTEGER NOT NULL DEFAULT 1, ' +
            'PRIMARY KEY(`id`) )');
 });
+
+db.serialize(function() {
+  db.run('CREATE TABLE IF NOT EXISTS `User` ( ' +
+           '`user_id` TEXT NOT NULL, ' +
+           '`name` TEXT NOT NULL, ' +
+           '`picture` TEXT NOT NULL, ' +
+           '`song_0` TEXT NOT NULL, ' +
+           '`artist_0` TEXT NOT NULL, ' +
+           '`artist_0_1` TEXT NOT NULL, ' +
+           '`artist_0_2` TEXT NOT NULL, ' +
+           '`selected_artist_0` TEXT NOT NULL, ' +
+           '`submitted_0` INTEGER NOT NULL DEFAULT 0, ' +
+           '`correct_0` INTEGER NOT NULL DEFAULT 0, ' +
+           '`is_current_user` INTEGER NOT NULL DEFAULT 1, ' +
+           'PRIMARY KEY(`user_id`) )');
+});

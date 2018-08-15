@@ -48,6 +48,17 @@ class App extends Component {
                 </li>
                 <li  className="nav-item active">
                   <a  className="nav-link"
+                    onClick={this.goTo.bind(this, 'card')}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Card
+                  <span  className="sr-only">
+                  </span>
+                  </a>
+                </li>
+
+                <li  className="nav-item active">
+                  <a  className="nav-link"
                     onClick={this.logout.bind(this)}
                     style={{ cursor: "pointer" }}
                   >
