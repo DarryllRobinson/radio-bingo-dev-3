@@ -149,21 +149,21 @@ cardsRouter.post('/', (req, res, next) => {
         correct_15 = req.body.card.correct_15,
         isCurrentcard = req.body.card.isCurrentcard === 0 ? 0 : 1;
   if (!name_0 || !artist0_1 || !artist0_2 || !artist0_3 || !submitted_0 || !selected_artist_0 || !correct_0 || !submitted_0 || !correct_0
-    !name_1 || !artist1_1 || !artist1_2 || !artist1_3 || !submitted_1 || !selected_artist_1 || !correct_1 || !submitted_1 || !correct_1
-    !name_2 || !artist2_1 || !artist2_2 || !artist2_3 || !submitted_2 || !selected_artist_2 || !correct_2 || !submitted_2 || !correct_2
-    !name_3 || !artist3_1 || !artist3_2 || !artist3_3 || !submitted_3 || !selected_artist_3 || !correct_3 || !submitted_3 || !correct_3
-    !name_4 || !artist4_1 || !artist4_2 || !artist4_3 || !submitted_4 || !selected_artist_4 || !correct_4 || !submitted_4 || !correct_4
-    !name_5 || !artist5_1 || !artist5_2 || !artist5_3 || !submitted_5 || !selected_artist_5 || !correct_5 || !submitted_5 || !correct_5
-    !name_6 || !artist6_1 || !artist6_2 || !artist6_3 || !submitted_6 || !selected_artist_6 || !correct_6 || !submitted_6 || !correct_6
-    !name_7 || !artist7_1 || !artist7_2 || !artist7_3 || !submitted_7 || !selected_artist_7 || !correct_7 || !submitted_7 || !correct_7
-    !name_8 || !artist8_1 || !artist8_2 || !artist8_3 || !submitted_8 || !selected_artist_8 || !correct_8 || !submitted_8 || !correct_8
-    !name_9 || !artist9_1 || !artist9_2 || !artist9_3 || !submitted_9 || !selected_artist_9 || !correct_9 || !submitted_9 || !correct_9
-    !name_10 || !artist10_1 || !artist10_2 || !artist10_3 || !submitted_10 || !selected_artist_10 || !correct_10 || !submitted_10 || !correct_10
-    !name_11 || !artist11_1 || !artist11_2 || !artist11_3 || !submitted_11 || !selected_artist_11 || !correct_11 || !submitted_11 || !correct_11
-    !name_12 || !artist12_1 || !artist12_2 || !artist12_3 || !submitted_12 || !selected_artist_12 || !correct_12 || !submitted_12 || !correct_12
-    !name_13 || !artist13_1 || !artist13_2 || !artist13_3 || !submitted_13 || !selected_artist_13 || !correct_13 || !submitted_13 || !correct_13
-    !name_14 || !artist14_1 || !artist14_2 || !artist14_3 || !submitted_14 || !selected_artist_14 || !correct_14 || !submitted_14 || !correct_14
-    !name_15 || !artist15_1 || !artist15_2 || !artist15_3 || !submitted_15 || !selected_artist_15 || !correct_15 || !submitted_15 || !correct_15) {
+    ||!name_1 || !artist1_1 || !artist1_2 || !artist1_3 || !submitted_1 || !selected_artist_1 || !correct_1 || !submitted_1 || !correct_1
+    ||!name_2 || !artist2_1 || !artist2_2 || !artist2_3 || !submitted_2 || !selected_artist_2 || !correct_2 || !submitted_2 || !correct_2
+    ||!name_3 || !artist3_1 || !artist3_2 || !artist3_3 || !submitted_3 || !selected_artist_3 || !correct_3 || !submitted_3 || !correct_3
+    ||!name_4 || !artist4_1 || !artist4_2 || !artist4_3 || !submitted_4 || !selected_artist_4 || !correct_4 || !submitted_4 || !correct_4
+    ||!name_5 || !artist5_1 || !artist5_2 || !artist5_3 || !submitted_5 || !selected_artist_5 || !correct_5 || !submitted_5 || !correct_5
+    ||!name_6 || !artist6_1 || !artist6_2 || !artist6_3 || !submitted_6 || !selected_artist_6 || !correct_6 || !submitted_6 || !correct_6
+    ||!name_7 || !artist7_1 || !artist7_2 || !artist7_3 || !submitted_7 || !selected_artist_7 || !correct_7 || !submitted_7 || !correct_7
+    ||!name_8 || !artist8_1 || !artist8_2 || !artist8_3 || !submitted_8 || !selected_artist_8 || !correct_8 || !submitted_8 || !correct_8
+    ||!name_9 || !artist9_1 || !artist9_2 || !artist9_3 || !submitted_9 || !selected_artist_9 || !correct_9 || !submitted_9 || !correct_9
+    ||!name_10 || !artist10_1 || !artist10_2 || !artist10_3 || !submitted_10 || !selected_artist_10 || !correct_10 || !submitted_10 || !correct_10
+    ||!name_11 || !artist11_1 || !artist11_2 || !artist11_3 || !submitted_11 || !selected_artist_11 || !correct_11 || !submitted_11 || !correct_11
+    ||!name_12 || !artist12_1 || !artist12_2 || !artist12_3 || !submitted_12 || !selected_artist_12 || !correct_12 || !submitted_12 || !correct_12
+    ||!name_13 || !artist13_1 || !artist13_2 || !artist13_3 || !submitted_13 || !selected_artist_13 || !correct_13 || !submitted_13 || !correct_13
+    ||!name_14 || !artist14_1 || !artist14_2 || !artist14_3 || !submitted_14 || !selected_artist_14 || !correct_14 || !submitted_14 || !correct_14
+    ||!name_15 || !artist15_1 || !artist15_2 || !artist15_3 || !submitted_15 || !selected_artist_15 || !correct_15 || !submitted_15 || !correct_15) {
     return res.sendStatus(400);
   }
 
@@ -476,21 +476,21 @@ cardsRouter.put('/:cardId', (req, res, next) => {
         correct_15 = req.body.card.correct_15,
         isCurrentcard = req.body.card.isCurrentcard === 0 ? 0 : 1;
   if (!name_0 || !artist0_1 || !artist0_2 || !artist0_3 || !submitted_0 || !selected_artist_0 || !correct_0 || !submitted_0 || !correct_0
-    !name_1 || !artist1_1 || !artist1_2 || !artist1_3 || !submitted_1 || !selected_artist_1 || !correct_1 || !submitted_1 || !correct_1
-    !name_2 || !artist2_1 || !artist2_2 || !artist2_3 || !submitted_2 || !selected_artist_2 || !correct_2 || !submitted_2 || !correct_2
-    !name_3 || !artist3_1 || !artist3_2 || !artist3_3 || !submitted_3 || !selected_artist_3 || !correct_3 || !submitted_3 || !correct_3
-    !name_4 || !artist4_1 || !artist4_2 || !artist4_3 || !submitted_4 || !selected_artist_4 || !correct_4 || !submitted_4 || !correct_4
-    !name_5 || !artist5_1 || !artist5_2 || !artist5_3 || !submitted_5 || !selected_artist_5 || !correct_5 || !submitted_5 || !correct_5
-    !name_6 || !artist6_1 || !artist6_2 || !artist6_3 || !submitted_6 || !selected_artist_6 || !correct_6 || !submitted_6 || !correct_6
-    !name_7 || !artist7_1 || !artist7_2 || !artist7_3 || !submitted_7 || !selected_artist_7 || !correct_7 || !submitted_7 || !correct_7
-    !name_8 || !artist8_1 || !artist8_2 || !artist8_3 || !submitted_8 || !selected_artist_8 || !correct_8 || !submitted_8 || !correct_8
-    !name_9 || !artist9_1 || !artist9_2 || !artist9_3 || !submitted_9 || !selected_artist_9 || !correct_9 || !submitted_9 || !correct_9
-    !name_10 || !artist10_1 || !artist10_2 || !artist10_3 || !submitted_10 || !selected_artist_10 || !correct_10 || !submitted_10 || !correct_10
-    !name_11 || !artist11_1 || !artist11_2 || !artist11_3 || !submitted_11 || !selected_artist_11 || !correct_11 || !submitted_11 || !correct_11
-    !name_12 || !artist12_1 || !artist12_2 || !artist12_3 || !submitted_12 || !selected_artist_12 || !correct_12 || !submitted_12 || !correct_12
-    !name_13 || !artist13_1 || !artist13_2 || !artist13_3 || !submitted_13 || !selected_artist_13 || !correct_13 || !submitted_13 || !correct_13
-    !name_14 || !artist14_1 || !artist14_2 || !artist14_3 || !submitted_14 || !selected_artist_14 || !correct_14 || !submitted_14 || !correct_14
-    !name_15 || !artist15_1 || !artist15_2 || !artist15_3 || !submitted_15 || !selected_artist_15 || !correct_15 || !submitted_15 || !correct_15) {
+    ||!name_1 || !artist1_1 || !artist1_2 || !artist1_3 || !submitted_1 || !selected_artist_1 || !correct_1 || !submitted_1 || !correct_1
+    ||!name_2 || !artist2_1 || !artist2_2 || !artist2_3 || !submitted_2 || !selected_artist_2 || !correct_2 || !submitted_2 || !correct_2
+    ||!name_3 || !artist3_1 || !artist3_2 || !artist3_3 || !submitted_3 || !selected_artist_3 || !correct_3 || !submitted_3 || !correct_3
+    ||!name_4 || !artist4_1 || !artist4_2 || !artist4_3 || !submitted_4 || !selected_artist_4 || !correct_4 || !submitted_4 || !correct_4
+    ||!name_5 || !artist5_1 || !artist5_2 || !artist5_3 || !submitted_5 || !selected_artist_5 || !correct_5 || !submitted_5 || !correct_5
+    ||!name_6 || !artist6_1 || !artist6_2 || !artist6_3 || !submitted_6 || !selected_artist_6 || !correct_6 || !submitted_6 || !correct_6
+    ||!name_7 || !artist7_1 || !artist7_2 || !artist7_3 || !submitted_7 || !selected_artist_7 || !correct_7 || !submitted_7 || !correct_7
+    ||!name_8 || !artist8_1 || !artist8_2 || !artist8_3 || !submitted_8 || !selected_artist_8 || !correct_8 || !submitted_8 || !correct_8
+    ||!name_9 || !artist9_1 || !artist9_2 || !artist9_3 || !submitted_9 || !selected_artist_9 || !correct_9 || !submitted_9 || !correct_9
+    ||!name_10 || !artist10_1 || !artist10_2 || !artist10_3 || !submitted_10 || !selected_artist_10 || !correct_10 || !submitted_10 || !correct_10
+    ||!name_11 || !artist11_1 || !artist11_2 || !artist11_3 || !submitted_11 || !selected_artist_11 || !correct_11 || !submitted_11 || !correct_11
+    ||!name_12 || !artist12_1 || !artist12_2 || !artist12_3 || !submitted_12 || !selected_artist_12 || !correct_12 || !submitted_12 || !correct_12
+    ||!name_13 || !artist13_1 || !artist13_2 || !artist13_3 || !submitted_13 || !selected_artist_13 || !correct_13 || !submitted_13 || !correct_13
+    ||!name_14 || !artist14_1 || !artist14_2 || !artist14_3 || !submitted_14 || !selected_artist_14 || !correct_14 || !submitted_14 || !correct_14
+    ||!name_15 || !artist15_1 || !artist15_2 || !artist15_3 || !submitted_15 || !selected_artist_15 || !correct_15 || !submitted_15 || !correct_15) {
     return res.sendStatus(400);
   }
 
