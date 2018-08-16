@@ -42,6 +42,18 @@ Bingo.getArtist = id => {
   });
 };
 
+Bingo.getUser = user_id => {
+  const url = `${baseUrl}/users/${user_id}`;
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      return camelcaseKeys(jsonResponse.user);
+    });
+  });
+};
+
 Bingo.createSong = song => {
   const url = `${baseUrl}/songs`;
   const fetchOptions = {

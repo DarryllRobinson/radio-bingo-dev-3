@@ -4,6 +4,7 @@ import App from './App';
 //import Home from './Home/Home';
 import Landing from './components/Landing';
 import Card from './components/Card';
+import Test from './components/Test';
 import Profile from './Auth/Profile';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
@@ -24,6 +25,7 @@ export const makeMainRoutes = () => {
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/landing" render={(props) => <Landing auth={auth} {...props} />} />
           <Route path="/card" render={(props) => <Card auth={auth} {...props} />} />
+          <Route path="/test" render={(props) => <Test auth={auth} {...props} />} />
           <Route path="/profile" render={(props) => <Profile auth={auth} {...props} />} />
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
