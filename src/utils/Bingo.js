@@ -54,26 +54,26 @@ Bingo.getUser = user_id => {
   });
 };
 
-/*Bingo.createSong = song => {
-  const url = `${baseUrl}/songs`;
+Bingo.createCard = card => {
+  const url = `${baseUrl}/cards`;
   const fetchOptions = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({song: song})
+    body: JSON.stringify({card: card})
   };
   return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      return camelcaseKeys(jsonResponse.song);
+      return camelcaseKeys(jsonResponse.card);
     });
   });
 };
 
-Bingo.updateSong = song => {
+/*Bingo.updateSong = song => {
   const url = `${baseUrl}/songs/${song.id}`;
   const fetchOptions = {
     method: 'PUT',

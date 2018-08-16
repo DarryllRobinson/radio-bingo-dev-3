@@ -43,59 +43,6 @@ songsRouter.post('/', (req, res, next) => {
     return res.sendStatus(400);
   }
 
-  const sql = 'INSERT INTO song (name, position, wage, is_current_song)' +
-      'VALUES ($name, $position, $wage, $isCurrentsong)';
-  const values = {
-    $name: name,
-    $position: position,
-    $wage: wage,
-    $isCurrentsong: isCurrentsong
-  };
-
-  db.run(sql, values, function(error) {
-    if (error) {
-      next(error);
-    } else {
-      db.get(`SELECT * FROM song WHERE song.id = ${this.lastID}`,
-        (error, song) => {
-          res.status(201).json({song: song});
-        });
-    }
-  });
-});
-
-songsRouter.put('/:songId', (req, res, next) => {
-  const name = req.body.song.name,
-        position = req.body.song.position,
-        wage = req.body.song.wage,
-        isCurrentsong = req.body.song.isCurrentsong === 0 ? 0 : 1;
-  if (!name || !position || !wage) {
-    return res.sendStatus(400);
-  }
-
-  const sql = 'UPDATE song SET name = $name, position = $position, ' +
-      'wage = $wage, is_current_song = $isCurrentsong ' +
-      'WHERE song.id = $songId';
-  const values = {
-    $name: name,
-    $position: position,
-    $wage: wage,
-    $isCurrentsong: isCurrentsong,
-    $songId: req.params.songId
-  };
-
-  db.run(sql, values, (error) => {
-    if (error) {
-      next(error);
-    } else {
-      db.get(`SELECT * FROM song WHERE song.id = ${req.params.songId}`,
-        (error, song) => {
-          res.status(200).json({song: song});
-        });
-    }
-  });
-});
-
 songsRouter.delete('/:songId', (req, res, next) => {
   const sql = 'UPDATE song SET is_current_song = 0 WHERE song.id = $songId';
   const values = {$songId: req.params.songId};

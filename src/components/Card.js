@@ -29,6 +29,9 @@ class Card extends Component {
 
     //if (!this.checkDB(user_id)) {
       this.newCard(user_id);
+      // must still check if campaign exists
+      // and then check if the campaign has started
+      // and then check if the campaign has ended
     //}
     //console.log('exists');
   }
@@ -51,10 +54,10 @@ class Card extends Component {
         .then((values) => {
           this.prepTiles(values);
         })
-        //.then(this.updateDB());
+        .then(this.saveCard());
         //.then(console.log('loop'));
       }
-      this.updateDB();
+      //this.saveCard();
   }
 
   fetchSong() {
@@ -147,8 +150,11 @@ class Card extends Component {
     }
   }
 
-  updateDB() {
-    console.log('this.state.tiles: ', this.state.tiles);
+  saveCard() {
+    console.log('this.state.tiles[0]: ', this.state.tiles[0]);
+    /*Bingo.createCard(this.state.tiles[0]).then(card => {
+      console.log('Card saved');
+    })*/
   }
 
   render() {
