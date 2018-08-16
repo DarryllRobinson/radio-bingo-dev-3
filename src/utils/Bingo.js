@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 const Bingo = {};
 const baseUrl = 'http://localhost:4000/api';
 
-Bingo.getSongs = () => {
+/*Bingo.getSongs = () => {
   const url = `${baseUrl}/songs`;
 
   return fetch(url).then(response => {
@@ -16,7 +16,7 @@ Bingo.getSongs = () => {
       return jsonResponse.songs.map(song => camelcaseKeys(song));
     });
   });
-};
+};*/
 
 Bingo.getSong = id => {
   const url = `${baseUrl}/songs/${id}`;
@@ -54,7 +54,7 @@ Bingo.getUser = user_id => {
   });
 };
 
-Bingo.createSong = song => {
+/*Bingo.createSong = song => {
   const url = `${baseUrl}/songs`;
   const fetchOptions = {
     method: 'POST',
@@ -118,6 +118,6 @@ Bingo.deleteSong = id => {
     method: 'DELETE'
   };
   return fetch(url, fetchOptions);
-};
+};*/
 
 export default Bingo;

@@ -4,6 +4,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import './App.css';
 
 class App extends Component {
+
   goTo(route) {
     this.props.history.replace(`/${route}`);
   }
