@@ -1,6 +1,5 @@
 const express = require('express');
 const songsRouter = express.Router();
-
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
@@ -36,18 +35,46 @@ songsRouter.get('/:songId', (req, res, next) => {
 
 songsRouter.post('/', (req, res, next) => {
   const name = req.body.song.name,
-        position = req.body.song.position,
-        wage = req.body.song.wage,
-        isCurrentsong = req.body.song.isCurrentsong === 0 ? 0 : 1;
-  if (!name || !position || !wage) {
+    artist = req.body.song.artist,
+    isCurrentsong = req.body.song.isCurrentsong === 0 ? 0 : 1;
+  if (!name || !artist) {
     return res.sendStatus(400);
   }
-
-songsRouter.delete('/:songId', (req, res, next) => {
-  const sql = 'UPDATE song SET is_current_song = 0 WHERE song.id = $songId';
-  const values = {$songId: req.params.songId};
-
-  db.run(sql, values, (error) => {
+   const sql = 'INSERT INTO song (name, artist, is_current_song)' +
+      'VALUES ($name, $artist, $isCurrentsong)';
+  const values = {
+    $name: name,
+    $artist: artist,
+    $isCurrentsong: isCurrentsong
+  };
+   db.run(sql, values, function(error) {
+    if (error) {
+      next(error);
+    } else {
+      db.get(`SELECT * FROM song WHERE song.id = ${this.lastID}`,
+        (error, song) => {
+          res.status(201).json({song: song});
+        });
+    }
+  });
+});
+ songsRouter.put('/:songId', (req, res, next) => {
+   const name = req.body.song.name,
+     artist = req.body.song.artist,
+     isCurrentsong = req.body.song.isCurrentsong === 0 ? 0 : 1;
+   if (!name || !artist) {
+     return res.sendStatus(400);
+  }
+   const sql = 'UPDATE song SET name = $name, artist = $artist, ' +
+      'is_current_song = $isCurrentsong ' +
+      'WHERE song.id = $songId';
+  const values = {
+    $name: name,
+    $artist: artist,
+    $isCurrentsong: isCurrentsong,
+    $songId: req.params.songId
+  };
+   db.run(sql, values, (error) => {
     if (error) {
       next(error);
     } else {
@@ -58,5 +85,18 @@ songsRouter.delete('/:songId', (req, res, next) => {
     }
   });
 });
-
-module.exports = songsRouter;
+ songsRouter.delete('/:songId', (req, res, next) => {
+  const sql = 'UPDATE song SET is_current_song = 0 WHERE song.id = $songId';
+  const values = {$songId: req.params.songId};
+   db.run(sql, values, (error) => {
+    if (error) {
+      next(error);
+    } else {
+      db.get(`SELECT * FROM song WHERE song.id = ${req.params.songId}`,
+        (error, song) => {
+          res.status(200).json({song: song});
+        });
+    }
+  });
+});
+ module.exports = songsRouter;
