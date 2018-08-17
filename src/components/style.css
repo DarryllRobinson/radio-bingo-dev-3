@@ -31,6 +31,16 @@ a {
   margin: 5px;
 }
 
+.select {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 350;
+  letter-spacing: 0.3px;
+  text-align: center;;
+  word-break: break-word;
+  color: f3f3f3;
+}
+
 {/* brings everything on the Landing page to the centre */}
 .Landing {
   display: flex;

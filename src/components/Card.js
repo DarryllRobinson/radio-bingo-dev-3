@@ -7,6 +7,8 @@ class Card extends Component {
   constructor(props) {
     super(props);
 
+    this.myRef = React.createRef();
+
     this.state = {
       minicard: {
         name_0: "song 333",
@@ -22,6 +24,8 @@ class Card extends Component {
       },
       tiles: []
     };
+
+    this.submitArtist = this.submitArtist.bind(this);
   }
 
   componentWillMount() {
@@ -69,7 +73,7 @@ class Card extends Component {
         .then((values) => {
           if (this.state.tiles.length > 0) {
             //console.log('State: ', this.state);
-            this.saveminiCard();
+            //this.saveminiCard();
           }
         })
         //.then(console.log('loop'));
@@ -116,6 +120,14 @@ class Card extends Component {
     });
   }
 
+  submitArtist(e) {
+    e.preventDefault();
+    console.log('The link was clicked.');
+    console.log('myRef: ', this.myRef.value);
+    this.myRef = "flipper";
+    console.log('myRef: ', this.myRef.value);
+  }
+
   renderCards() {
     if (this.state.tiles.length > 0) {
       return this.state.tiles.map(tile => {
@@ -130,7 +142,7 @@ class Card extends Component {
                 <div ref="flipper">
                   <h3>{tile[0].name}</h3>
                   <br />
-                  <h4>Select artist</h4>
+                  <button className="select">Select artist</button>
                 </div>
 
                 <div>
@@ -154,9 +166,13 @@ class Card extends Component {
                       value={tile[0].artist_3}
                     />
                     {tile[0].artist_3}
-                    <div className="saveArtist" ref="flipper">
+                    <br />
+                    <br />
+                    <button className="select"
+                      ref={(ref) => this.myRef = ref}
+                      onClick={this.submitArtist}>
                       Save artist
-                    </div>
+                    </button>
                   </h4>
                 </div>
               </FlexyFlipCard>
