@@ -65,10 +65,34 @@ Bingo.createCard = card => {
   };
   return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
+      console.log('error');
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
+      console.log('saved');
       return camelcaseKeys(jsonResponse.card);
+    });
+  });
+};
+
+Bingo.createminiCard = minicard => {
+  const url = `${baseUrl}/minicards`;
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({minicard: minicard})
+  };
+  //console.log('body: ', fetchOptions.body);
+  return fetch(url, fetchOptions).then(response => {
+    if (!response.ok) {
+      console.log('error');
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      console.log('saved');
+      return camelcaseKeys(jsonResponse.minicard);
     });
   });
 };

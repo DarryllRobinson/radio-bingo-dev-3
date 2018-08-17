@@ -8,6 +8,18 @@ class Card extends Component {
     super(props);
 
     this.state = {
+      minicard: {
+        name_0: "song 333",
+        campaign_id: 123,
+        artist0_1: "artist0_1",
+        artist0_2: "artist0_2",
+        artist0_3: "artist0_3",
+        submitted_0: 0,
+        submitted_time_0: "submitted_time_0",
+        selected_artist_0: "selected_artist_0",
+        correct_0: 0,
+        is_current_minicard: 1
+      },
       tiles: []
     };
   }
@@ -45,7 +57,7 @@ class Card extends Component {
   }
 
   newCard(user) {
-    const numTiles = 16;
+    const numTiles = 1;
 
     for (let i = 0; i < numTiles; i++) {
       Promise.all([
@@ -54,7 +66,12 @@ class Card extends Component {
         .then((values) => {
           this.prepTiles(values);
         })
-        .then(this.saveCard());
+        .then((values) => {
+          if (this.state.tiles.length > 0) {
+            //console.log('State: ', this.state);
+            this.saveminiCard();
+          }
+        })
         //.then(console.log('loop'));
       }
       //this.saveCard();
@@ -93,7 +110,7 @@ class Card extends Component {
       this.setState(prevState => ({
         tiles: [...prevState.tiles, arr]
       }), function() {
-        console.log('State: ', this.state);
+        //console.log('State: ', this.state);
         resolve();
       });
     });
@@ -150,11 +167,18 @@ class Card extends Component {
     }
   }
 
+  saveminiCard() {
+    //console.log('minicard: ', this.state.minicard);
+    Bingo.createminiCard(this.state.minicard).then(card => {
+      //console.log('Card response: ', card);
+    })
+  }
+
   saveCard() {
-    console.log('this.state.tiles[0]: ', this.state.tiles[0]);
-    /*Bingo.createCard(this.state.tiles[0]).then(card => {
-      console.log('Card saved');
-    })*/
+    //console.log('this.state.tiles[0]: ', this.state.tiles[0]);
+    Bingo.createminiCard(this.state.tiles[0]).then(card => {
+      console.log('Card response: ', card);
+    })
   }
 
   render() {
