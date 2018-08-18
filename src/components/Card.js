@@ -7,8 +7,6 @@ class Card extends Component {
   constructor(props) {
     super(props);
 
-    this.myRef = React.createRef();
-
     this.state = {
       minicard: {
         name_0: "song 333",
@@ -123,9 +121,9 @@ class Card extends Component {
   submitArtist(e) {
     e.preventDefault();
     console.log('The link was clicked.');
-    console.log('myRef: ', this.myRef.value);
-    this.myRef = "flipper";
-    console.log('myRef: ', this.myRef.value);
+    /*console.log('myRef: ', this.myRef.value);
+    this.myRef.value = "flipper";
+    console.log('myRef: ', this.myRef.value);*/
   }
 
   renderCards() {
@@ -168,11 +166,12 @@ class Card extends Component {
                     {tile[0].artist_3}
                     <br />
                     <br />
-                    <button className="select"
-                      ref={(ref) => this.myRef = ref}
-                      onClick={this.submitArtist}>
-                      Save artist
-                    </button>
+                    <div ref="flipper">
+                      <button className="select"
+                        onClick={this.submitArtist}>
+                        Save artist
+                      </button>
+                    </div>
                   </h4>
                 </div>
               </FlexyFlipCard>
