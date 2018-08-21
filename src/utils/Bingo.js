@@ -96,7 +96,25 @@ Bingo.createTile = tile => {
 
 Bingo.getTiles = card_id => {
   const url = `${baseUrl}/tiles/${card_id}`;
-  console.log('url: ', url);
+  //console.log('url: ', url);
+
+  return fetch(url).then(response => {
+    //console.log('response: ', response);
+    //console.log('response.json: ', response.json);
+    if (!response.ok) {
+      return new Promise(resolve => resolve([]));
+    }
+
+    return response.json().then(jsonResponse => {
+      console.log('jsonResponse: ', jsonResponse);
+      return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
+    });
+  });
+};
+
+/*Bingo.getTiles = () => {
+  const url = `${baseUrl}/tiles/`;
+  console.log('()url: ', url);
 
   return fetch(url).then(response => {
     if (!response.ok) {
@@ -107,7 +125,7 @@ Bingo.getTiles = card_id => {
       return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
     });
   });
-};
+};*/
 
 /*Bingo.getSongs = () => {
   const url = `${baseUrl}/songs`;

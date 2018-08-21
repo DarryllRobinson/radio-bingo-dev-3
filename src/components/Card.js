@@ -120,7 +120,13 @@ class Card extends Component {
   }
 
   cardIntoState(cardId) {
-    Bingo.getTiles(cardId);
+    console.log('cardId: ', cardId);
+    Bingo.getTiles(cardId).then(response => {
+      console.log('response: ', response);
+    });
+    /*Bingo.getTiles().then(response => {
+      console.log(('response: ', response));
+    });*/
     //console.log('cardId: ', cardId);
   }
 

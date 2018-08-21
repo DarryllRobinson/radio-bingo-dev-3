@@ -6,6 +6,7 @@
   "devDependencies": {},
   "dependencies": {
     "auth0-js": "^9.7.3",
+    "body-parser": "^1.18.3",
     "bootstrap": "^4.1.3",
     "cors": "^2.8.4",
     "errorhandler": "^1.5.0",
