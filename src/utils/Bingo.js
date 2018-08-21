@@ -4,20 +4,6 @@ import 'whatwg-fetch';
 const Bingo = {};
 const baseUrl = 'http://localhost:4000/api';
 
-/*Bingo.getSongs = () => {
-  const url = `${baseUrl}/songs`;
-
-  return fetch(url).then(response => {
-    if (!response.ok) {
-      return new Promise(resolve => resolve([]));
-    }
-
-    return response.json().then(jsonResponse => {
-      return jsonResponse.songs.map(song => camelcaseKeys(song));
-    });
-  });
-};*/
-
 Bingo.getSong = id => {
   const url = `${baseUrl}/songs/${id}`;
   return fetch(url).then(response => {
@@ -107,6 +93,35 @@ Bingo.createTile = tile => {
     });
   });
 };
+
+Bingo.getTiles = card_id => {
+  const url = `${baseUrl}/tiles/${card_id}`;
+  console.log('url: ', url);
+
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve([]));
+    }
+
+    return response.json().then(jsonResponse => {
+      return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
+    });
+  });
+};
+
+/*Bingo.getSongs = () => {
+  const url = `${baseUrl}/songs`;
+
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve([]));
+    }
+
+    return response.json().then(jsonResponse => {
+      return jsonResponse.songs.map(song => camelcaseKeys(song));
+    });
+  });
+};*/
 
 Bingo.createminiCard = minicard => {
   const url = `${baseUrl}/minicards`;

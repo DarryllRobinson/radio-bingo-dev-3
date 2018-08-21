@@ -13,7 +13,7 @@ class Card extends Component {
       loading: 'initial',
       data: '',
       card: {},
-      tiles: []
+      tiles: {}
     };
 
   }
@@ -42,9 +42,11 @@ class Card extends Component {
 
     this.newCard(numTiles, userId, campaignId)
     .then((card) => {
-      this.setState({ loading: "true" }, function() {
+      //console.log('card: ', card);
+      this.cardIntoState(card.id);
+      /*this.setState({ loading: "complete" }, function() {
         console.log('state: ', this.state);
-      });
+      });*/
       //console.log('state: ', this.state);
     });
   }
@@ -57,7 +59,7 @@ class Card extends Component {
           this.createTile(card.id);
         }
         //console.log('card: ', card);
-        resolve();
+        resolve(card);
       });
     });
     //onsole.log('end of newCard');
@@ -115,6 +117,67 @@ class Card extends Component {
     };
     //console.log('tile: ', tile);
     Bingo.createTile(tile);
+  }
+
+  cardIntoState(cardId) {
+    Bingo.getTiles(cardId);
+    //console.log('cardId: ', cardId);
+  }
+
+  renderCards() {
+    if (this.state.tiles.length > 0) {
+      return this.state.tiles.map(tile => {
+        return (
+          <div
+            className="item"
+            key={tile[0].id}>
+              <FlexyFlipCard
+                  frontBackgroundColor="#000034"
+                  backBackgroundColor="#000034"
+              >
+                <div ref="flipper">
+                  <h3>{tile[0].song}</h3>
+                  <br />
+                  <button className="select">Select artist</button>
+                </div>
+
+                <div>
+                  <h4>
+                    <input type="radio"
+                      name="artist1"
+                      value={tile[0].artist_1}
+                    />
+                    {tile[0].artist_1}
+                    <br />
+                    <br />
+                    <input type="radio"
+                      name="artist2"
+                      value={tile[0].artist_2}
+                    />
+                    {tile[0].artist_2}
+                    <br />
+                    <br />
+                    <input type="radio"
+                      name="artist3"
+                      value={tile[0].artist_3}
+                    />
+                    {tile[0].artist_3}
+                    <br />
+                    <br />
+                    <div ref="flipper">
+                      <button className="select"
+                        onClick={this.submitArtist}>
+                        Save artist
+                      </button>
+                    </div>
+                  </h4>
+                </div>
+              </FlexyFlipCard>
+
+          </div>
+        );
+      });
+    }
   }
 
   render() {
