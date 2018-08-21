@@ -14,7 +14,8 @@ db.serialize(function() {
     'PRIMARY KEY(`id`) )');
 
   db.run('CREATE TABLE IF NOT EXISTS `User` ( ' +
-    '`id` TEXT NOT NULL, ' +
+    '`id` INTEGER NOT NULL, ' +
+    '`user_id` TEXT NOT NULL, ' +
     '`name` TEXT NOT NULL, ' +
     '`picture` TEXT NOT NULL, ' +
     '`campaign_id` INTEGER, ' +
