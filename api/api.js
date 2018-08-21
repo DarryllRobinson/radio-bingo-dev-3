@@ -4,6 +4,7 @@ const songsRouter = require('./songs.js');
 const artistsRouter = require('./artists.js');
 const usersRouter = require('./users.js');
 const cardsRouter = require('./cards.js');
+const tilesRouter = require('./tiles.js');
 const minicardsRouter = require('./minicards.js');
 const campaignsRouter = require('./campaigns.js');
 
@@ -11,6 +12,7 @@ apiRouter.use('/songs', songsRouter);
 apiRouter.use('/artists', artistsRouter);
 apiRouter.use('/users', usersRouter);
 apiRouter.use('/cards', cardsRouter);
+apiRouter.use('/tiles', tilesRouter);
 apiRouter.use('/minicards', minicardsRouter);
 apiRouter.use('/campaigns', campaignsRouter);
 

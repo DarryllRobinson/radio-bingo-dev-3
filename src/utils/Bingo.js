@@ -54,6 +54,18 @@ Bingo.getUser = user_id => {
   });
 };
 
+Bingo.getSub = sub => {   // how is this going to work?
+  const url = `${baseUrl}/users/${sub}`;
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      return camelcaseKeys(jsonResponse.user);
+    });
+  });
+};
+
 Bingo.createCard = card => {
   const url = `${baseUrl}/cards`;
   const fetchOptions = {
@@ -65,12 +77,33 @@ Bingo.createCard = card => {
   };
   return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
-      console.log('error');
+      //console.log('error');
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      console.log('saved');
+      //console.log('saved');
       return camelcaseKeys(jsonResponse.card);
+    });
+  });
+};
+
+Bingo.createTile = tile => {
+  const url = `${baseUrl}/tiles`;
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({tile: tile})
+  };
+  return fetch(url, fetchOptions).then(response => {
+    if (!response.ok) {
+      //console.log('tile error');
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      //console.log('tile saved');
+      return camelcaseKeys(jsonResponse.tile);
     });
   });
 };

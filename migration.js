@@ -33,7 +33,7 @@ db.serialize(function() {
     '`submitted` INTEGER NOT NULL DEFAULT 0, ' +
     '`submitted_artist` TEXT, ' +
     '`submitted_time` TEXT, ' +
-    '`correct` INTEGER NOT NULL DEFAULT 0, ' +
+    '`correct` INTEGER DEFAULT 0, ' +
     '`card_id` INTEGER NOT NULL, ' +
     'PRIMARY KEY(`id`), ' +
     'FOREIGN KEY(`card_id`) REFERENCES `Card`(`id`) )');
@@ -42,6 +42,8 @@ db.serialize(function() {
     '`id` INTEGER NOT NULL, ' +
     '`numTiles` INTEGER NOT NULL, ' +
     '`user_id` INTEGER NOT NULL, ' +
+    '`campaign_id` INTEGER NOT NULL, ' +
+    '`is_current_card` INTEGER NOT NULL DEFAULT 1, ' +
     'PRIMARY KEY(`id`), ' +
     'FOREIGN KEY(`user_id`) REFERENCES `User`(`id`) )');
 
