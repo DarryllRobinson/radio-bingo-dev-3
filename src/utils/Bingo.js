@@ -63,11 +63,11 @@ Bingo.createCard = card => {
   };
   return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
-      //console.log('error');
+      console.log('card error');
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      //console.log('saved');
+      console.log('card saved');
       return camelcaseKeys(jsonResponse.card);
     });
   });
@@ -84,11 +84,11 @@ Bingo.createTile = tile => {
   };
   return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
-      //console.log('tile error');
+      console.log('tile error');
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      //console.log('tile saved');
+      console.log('tile saved');
       return camelcaseKeys(jsonResponse.tile);
     });
   });
@@ -96,17 +96,15 @@ Bingo.createTile = tile => {
 
 Bingo.getTiles = card_id => {
   const url = `${baseUrl}/tiles/${card_id}`;
-  //console.log('url: ', url);
 
   return fetch(url).then(response => {
-    //console.log('response: ', response);
-    //console.log('response.json: ', response.json);
+
     if (!response.ok) {
       return new Promise(resolve => resolve([]));
     }
 
     return response.json().then(jsonResponse => {
-      console.log('jsonResponse: ', jsonResponse);
+      //console.log('jsonResponse: ', jsonResponse);
       return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
     });
   });

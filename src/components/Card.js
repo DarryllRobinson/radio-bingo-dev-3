@@ -19,6 +19,9 @@ class Card extends Component {
   }
 
   componentWillMount() {
+
+    console.log('componentWillMount');
+
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
@@ -35,20 +38,34 @@ class Card extends Component {
 
   componentDidMount() {
 
+    console.log('componentDidMount');
+
     //console.log('This happens 3rd.');
-    const numTiles = 16;
+    const numTiles = 15;
     const userId = 2;  // must figure out the actual user_id
     const campaignId = 3;   // ditto here
+    const cardId = 14;   // and here
+    const exists = true; // need to integrate the user table eventually
 
-    this.newCard(numTiles, userId, campaignId)
+    if (!exists) {
+      this.newCard(numTiles, userId, campaignId);
+    };
+    this.setState({ loading: 'true' });
+    this.fetchCard(cardId)
     .then((card) => {
-      //console.log('card: ', card);
-      this.cardIntoState(card.id);
-      /*this.setState({ loading: "complete" }, function() {
-        console.log('state: ', this.state);
-      });*/
-      //console.log('state: ', this.state);
+      this.setState({ tiles: card }, function() {
+        this.setState({ loading: 'complete' })
+        console.log('state updated: ', this.state.tiles);
+      });
     });
+    /*this.prepareGame(cardId)
+    .then((card) => {
+      this.cardIntoState(card)
+      .then((msg) => {
+        this.setState({ loading: 'complete' });
+      });
+    });*/
+
   }
 
   newCard(numTiles, userId, campaignId) {
@@ -58,11 +75,9 @@ class Card extends Component {
         for (let i = 0; i < numTiles; i++) {
           this.createTile(card.id);
         }
-        //console.log('card: ', card);
         resolve(card);
       });
     });
-    //onsole.log('end of newCard');
     return promise;
   }
 
@@ -119,19 +134,59 @@ class Card extends Component {
     Bingo.createTile(tile);
   }
 
-  cardIntoState(cardId) {
-    console.log('cardId: ', cardId);
-    Bingo.getTiles(cardId).then(response => {
-      console.log('response: ', response);
+  prepareGame(cardId) {
+
+    console.log('prepareGame');
+
+    const promise = new Promise((resolve, reject) => {
+      this.fetchCard(cardId)
+      .then((card) => {
+        console.log('calling cardIntoState');
+        this.cardIntoState(card).then((response) => {
+          resolve(response);
+        });
+      });
     });
-    /*Bingo.getTiles().then(response => {
-      console.log(('response: ', response));
-    });*/
-    //console.log('cardId: ', cardId);
+    return promise;
   }
 
+  fetchCard(cardId) {
+
+    console.log('fetchCard');
+
+    const promise = new Promise((resolve, reject) => {
+      Bingo.getTiles(cardId).then(card => {
+        //console.log('about to resolve fetchCard');
+        resolve(card);
+      });
+    });
+    return promise;
+  }
+
+  /*cardIntoState(card) {
+    console.log('cardIntoState card: ', card);
+    const promise = new Promise((resolve, reject) => {
+      console.log('about to setState');
+      this.setState({
+        tiles: card
+      }, function() {
+        console.log('this.state: ', this.state);
+        console.log('setState complete');
+        //resolve('cardIntoState resolved');
+        //resolve(card);
+      });
+    });
+    return promise;
+  }*/
+
   renderCards() {
-    if (this.state.tiles.length > 0) {
+
+    console.log('renderCards');
+    console.log('loading: ', this.state.loading);
+
+    //if (this.state.tiles.length > 0) {
+    if (this.state.loading === 'complete') {
+      console.log('tiles: ', this.state.tiles);
       return this.state.tiles.map(tile => {
         return (
           <div
@@ -142,7 +197,7 @@ class Card extends Component {
                   backBackgroundColor="#000034"
               >
                 <div ref="flipper">
-                  <h3>{tile[0].song}</h3>
+                  <h3>{tile[0].name}</h3>
                   <br />
                   <button className="select">Select artist</button>
                 </div>
@@ -187,12 +242,15 @@ class Card extends Component {
   }
 
   render() {
+
+    console.log('render');
+
     const { profile } = this.state;
 
-    /*if (this.state.loading === 'initial') {
+    if (this.state.loading === 'initial') {
       console.log('This happens 2nd - after the class is constructed. You will not see this element because React is still computing changes to the DOM.');
       return <h2>Intializing...</h2>;
-    }*/
+    }
 
 
     if (this.state.loading === 'true') {
@@ -205,25 +263,32 @@ class Card extends Component {
     }
 
 
-    if (this.state.loading === 'profile') {
-      //console.log('This happens 6th - after profile has been updated.');
-      //console.log('state: ', this.state);
-      //console.log('this.state.profile.sub: ', this.state.profile.sub);
-      //this.checkDB(this.state.profile.sub);
-      //return <h2>Profile...</h2>;
-    }
+    /*if (this.state.loading === 'complete') {
+      return (
+        <div className="Card">
+          <h2>{profile.nickname + String.fromCharCode(39)}s Radio Bingo Board</h2>
+          <div className="tileCard">
+            <div className="item-list">
+              {this.renderCards()}
+            </div>
+          </div>
+         </div>
+      );
+    }*/
 
-    //console.log('This happens 9th - after I get data.');
     return (
       <div className="Card">
         <h2>{profile.nickname + String.fromCharCode(39)}s Radio Bingo Board</h2>
         <div className="tileCard">
           <div className="item-list">
-            {/*this.renderCards()*/}
+            {this.renderCards()}
           </div>
         </div>
        </div>
     );
+
+    //console.log('This happens 9th - after I get data.');
+
   }
 }
 
