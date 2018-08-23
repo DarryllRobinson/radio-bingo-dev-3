@@ -7,6 +7,7 @@ import Card from './components/Card';
 import Card1 from './components/Card_1';
 import Card2 from './components/Card_2';
 import Card3 from './components/Card_3';
+import Game from './components/Game';
 import Test from './components/Test';
 import Profile from './Auth/Profile';
 import Callback from './Callback/Callback';
@@ -28,6 +29,7 @@ export const makeMainRoutes = () => {
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/landing" render={(props) => <Landing auth={auth} {...props} />} />
           <Route path="/card" render={(props) => <Card auth={auth} {...props} />} />
+          <Route path="/game" render={(props) => <Game auth={auth} {...props} />} />
           <Route path="/card_1" render={(props) => <Card1 auth={auth} {...props} />} />
           <Route path="/card_2" render={(props) => <Card2 auth={auth} {...props} />} />
           <Route path="/card_3" render={(props) => <Card3 auth={auth} {...props} />} />

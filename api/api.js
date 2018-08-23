@@ -16,4 +16,17 @@ apiRouter.use('/tiles', tilesRouter);
 apiRouter.use('/minicards', minicardsRouter);
 apiRouter.use('/campaigns', campaignsRouter);
 
+
+
+
+const employeesRouter = require('./employees.js');
+const timesheetsRouter = require('./timesheets.js');
+const menusRouter = require('./menus.js');
+const menuitemsRouter = require('./menu-items.js');
+
+apiRouter.use('/employees', employeesRouter);
+apiRouter.use('timesheets', timesheetsRouter);
+apiRouter.use('/menus', menusRouter);
+apiRouter.use('/menu-items', menuitemsRouter);
+
 module.exports = apiRouter;

@@ -94,7 +94,20 @@ Bingo.createTile = tile => {
   });
 };
 
-Bingo.getTiles = card_id => {
+Bingo.getTiles = () => {
+  const url = `${baseUrl}/tiles`;
+
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve([]));
+    }
+    return response.json().then(jsonResponse => {
+      return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
+    });
+  });
+};
+
+/*Bingo.getTiles = card_id => {
   const url = `${baseUrl}/tiles/${card_id}`;
 
   return fetch(url).then(response => {
@@ -108,7 +121,7 @@ Bingo.getTiles = card_id => {
       return jsonResponse.tiles.map(tile => camelcaseKeys(tile));
     });
   });
-};
+};*/
 
 /*Bingo.getTiles = () => {
   const url = `${baseUrl}/tiles/`;

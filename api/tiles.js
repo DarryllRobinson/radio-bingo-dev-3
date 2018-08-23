@@ -29,7 +29,7 @@ tilesRouter.get('/', (req, res, next) => {
       if (err) {
         next(err);
       } else {
-        res.status(200).json({tiles: tiles, count: tiles.length});
+        res.status(200).json({tiles: tiles});
       }
     });
 });

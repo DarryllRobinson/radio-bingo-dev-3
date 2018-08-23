@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './style.css';
 import { FlexyFlipCard } from 'flexy-flipcards';
 import Bingo from '../utils/Bingo';
-import Display from './Display';
 
 class Card extends Component {
   constructor(props) {
@@ -241,7 +240,6 @@ class Card extends Component {
         <h2>{profile.nickname + String.fromCharCode(39)}s Radio Bingo Board</h2>
         <div className="tileCard">
           <div className="item-list">
-            <Display {...this.state.tiles} />
           </div>
         </div>
        </div>
