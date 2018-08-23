@@ -2,36 +2,35 @@ import React, { Component } from 'react';
 import './style.css';
 import { FlexyFlipCard } from 'flexy-flipcards';
 import Bingo from '../utils/Bingo';
+import Display from './Display';
 
 class Card extends Component {
   constructor(props) {
-    super(props);
+    super();
+
+    console.log('constructor - This happens 1st.');
 
     this.state = {
-      minicard: {
-        name_0: "song 333",
-        campaign_id: 123,
-        artist0_1: "artist0_1",
-        artist0_2: "artist0_2",
-        artist0_3: "artist0_3",
-        submitted_0: 0,
-        submitted_time_0: "submitted_time_0",
-        selected_artist_0: "selected_artist_0",
-        correct_0: 0,
-        is_current_minicard: 1
-      },
-      tiles: []
+      loading: 'initial',
+      data: '',
+      card: {},
+      tiles: {}
     };
 
-    this.submitArtist = this.submitArtist.bind(this);
   }
 
   componentWillMount() {
+
+    console.log('componentWillMount - This happens 2nd.');
+
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
-        this.setState({ profile });
+        this.setState({
+          profile,
+          loading: 'profile'
+        });
       });
     } else {
       this.setState({ profile: userProfile });
@@ -39,44 +38,65 @@ class Card extends Component {
   }
 
   componentDidMount() {
-    const user_id = this.state.profile.id;
 
-    //if (!this.checkDB(user_id)) {
-      this.newCard(user_id);
-      // must still check if campaign exists
-      // and then check if the campaign has started
-      // and then check if the campaign has ended
-    //}
-    //console.log('exists');
-  }
+    console.log('componentDidMount - This happens 5th.');
 
-  checkDB(id) {
-    let exists = false;
-    if (Bingo.getUser(id)) {
-      exists = true;
+    //console.log('This happens 3rd.');
+    const numTiles = 15;
+    const userId = 2;  // must figure out the actual user_id
+    const campaignId = 3;   // ditto here
+    const cardId = 14;   // and here
+    const exists = true; // need to integrate the user table eventually
+
+    if (!exists) {
+      this.newCard(numTiles, userId, campaignId);
     };
-    return exists;
+    this.setState({ loading: 'true' });
+    this.fetchCard(cardId)
+    .then((card) => {
+      console.log('componentDidMount - This happens 9th.');
+      this.setState({ tiles: card });
+    });
   }
 
-  newCard(user) {
-    const numTiles = 1;
+  newCard(numTiles, userId, campaignId) {
+    const promise = new Promise((resolve, reject) => {
+      this.createCard(numTiles, userId, campaignId)
+      .then((card) => {
+        for (let i = 0; i < numTiles; i++) {
+          this.createTile(card.id);
+        }
+        resolve(card);
+      });
+    });
+    return promise;
+  }
 
-    for (let i = 0; i < numTiles; i++) {
+  createCard(numTiles, userId, campaignId) {
+    const promise = new Promise((resolve, reject) => {
+      const card = {
+        numTiles: numTiles,
+        user_id: userId,
+        campaign_id: campaignId
+      }
+      Bingo.createCard(card).then(response => {
+        resolve(response);
+      });
+    });
+    return promise;
+  }
+
+  createTile(cardId) {
+    const promise = new Promise((resolve, reject) => {
       Promise.all([
         this.fetchSong(),
-        this.fetchArtists()])
-        .then((values) => {
-          this.prepTiles(values);
-        })
-        .then((values) => {
-          if (this.state.tiles.length > 0) {
-            //console.log('State: ', this.state);
-            //this.saveminiCard();
-          }
-        })
-        //.then(console.log('loop'));
-      }
-      //this.saveCard();
+        this.fetchArtists()
+      ])
+      .then((values) => {
+        this.prepTiles(values, cardId)
+      })
+    });
+    return promise;
   }
 
   fetchSong() {
@@ -93,40 +113,52 @@ class Card extends Component {
     return Promise.all(fetchPromises);
   }
 
-  prepTiles(arr) {
-    const tile = [];
-
-    tile.push({
-      id: arr[0].id,
-      name: arr[0].name,
+  prepTiles(arr, cardId) {
+    const tile = {
+      song: arr[0].name,
       artist_1: arr[0].artist,
       artist_2: arr[1][0].artist,
-      artist_3: arr[1][1].artist
-    });
-
-    this.updateTiles(tile);
+      artist_3: arr[1][1].artist,
+      card_id: cardId
+    };
+    //console.log('tile: ', tile);
+    Bingo.createTile(tile);
   }
 
-  updateTiles(arr) {
-    return new Promise((resolve, reject) => {
-      this.setState(prevState => ({
-        tiles: [...prevState.tiles, arr]
-      }), function() {
-        //console.log('State: ', this.state);
-        resolve();
+  prepareGame(cardId) {
+
+    console.log('prepareGame');
+
+    const promise = new Promise((resolve, reject) => {
+      this.fetchCard(cardId)
+      .then((card) => {
+        console.log('calling cardIntoState');
+        this.cardIntoState(card).then((response) => {
+          resolve(response);
+        });
       });
     });
+    return promise;
   }
 
-  submitArtist(e) {
-    e.preventDefault();
-    console.log('The link was clicked.');
-    /*console.log('myRef: ', this.myRef.value);
-    this.myRef.value = "flipper";
-    console.log('myRef: ', this.myRef.value);*/
+  fetchCard(cardId) {
+
+    const promise = new Promise((resolve, reject) => {
+      Bingo.getTiles(cardId).then(card => {
+        console.log('fetchCard - This happens 8th (after Bingo.getTiles).');
+        resolve(card);
+      });
+    });
+
+    console.log('fetchCard - This happens 6th.');
+    return promise;
   }
 
   renderCards() {
+
+    console.log('renderCards');
+    console.log('this.state.tiles.length: ', this.state.tiles.length);
+
     if (this.state.tiles.length > 0) {
       return this.state.tiles.map(tile => {
         return (
@@ -182,37 +214,38 @@ class Card extends Component {
     }
   }
 
-  saveminiCard() {
-    //console.log('minicard: ', this.state.minicard);
-    Bingo.createminiCard(this.state.minicard).then(card => {
-      //console.log('Card response: ', card);
-    })
-  }
-
-  saveCard() {
-    //console.log('this.state.tiles[0]: ', this.state.tiles[0]);
-    Bingo.createminiCard(this.state.tiles[0]).then(card => {
-      console.log('Card response: ', card);
-    })
-  }
-
   render() {
+
+    console.log('render - This happens 3rd - after componentWillMount');
+
     const { profile } = this.state;
 
-    return (
-      <div className="Landing">
-        <h2>{profile.nickname + String.fromCharCode(39)}s Radio Bingo Board</h2>
+    if (this.state.loading === 'initial') {
+      console.log('render - This happens 4th - after the class is constructed. You will not see this element because React is still computing changes to the DOM.');
+      return <h2>Intializing...</h2>;
+    }
 
-        <div className="tileCard">
 
-          <div className="item-list">
-            {this.renderCards()}
-            </div>
-
+    if (this.state.loading === 'true') {
+      console.log('render - This happens 7th - when waiting for data.');
+      return (
+        <div className="Card">
+          <h2>Preparing your bingo card - please wait one moment</h2>
         </div>
+      );
+    }
 
-      </div>
-    )
+    console.log('render - This happens when???');
+    return (
+      <div className="Card">
+        <h2>{profile.nickname + String.fromCharCode(39)}s Radio Bingo Board</h2>
+        <div className="tileCard">
+          <div className="item-list">
+            <Display {...this.state.tiles} />
+          </div>
+        </div>
+       </div>
+    );
   }
 }
 
